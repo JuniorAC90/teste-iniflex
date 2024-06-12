@@ -1,6 +1,8 @@
 import entidades.Funcionario;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.*;
@@ -138,11 +140,34 @@ public class Main {
 
         System.out.println("\n---------------------------------------------\n");
 
+        // 3.10 Imprimindo todos os funcionários em ordem alfabética
+        System.out.println("Funcionários em Ordem Alfabética: \n");
+        System.out.println("Nome\tDataNasc\tSalário\t\tFunção");
+        Collections.sort(listaDeFuncionarios);
+        for (Funcionario f : listaDeFuncionarios) {
+            System.out.println(f);
+        }
 
+        System.out.println("\n---------------------------------------------\n");
 
+        // 3.11 Imprimindo o total dos salários dos funcionários.
+        NumberFormat formatadorSalario = new DecimalFormat("#,###.##");
+        formatadorSalario.setMinimumFractionDigits(2);
+        BigDecimal totalDosSalarios = listaDeFuncionarios
+                .stream()
+                .map(Funcionario::getSalario)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        System.out.println("Total dos salários dos funcionários: " + formatadorSalario.format(totalDosSalarios));
 
+        System.out.println("\n---------------------------------------------\n");
 
+        // 3.11 Imprimindo quantos salários mínimos ganha cada funcionário
+        System.out.println("Funcionários em Ordem Alfabética: \n");
+        System.out.println("Nome\tQuantidade de Salários mínimos");
 
+        for (Funcionario f : listaDeFuncionarios) {
+            System.out.println(f.getNome() + "\t" + f.quantiodadeDeSalariosMinimos());
+        }
 
     }
 }

@@ -3,7 +3,7 @@ package entidades;
 import java.time.LocalDate;
 import java.time.Period;
 
-public class Pessoa {
+public class Pessoa implements Comparable<Pessoa> {
     private String nome;
     private LocalDate dataNascimento;
 
@@ -40,4 +40,9 @@ public class Pessoa {
     public int getMaiorIdade() {
         return maiorIdade;
     }
+
+    public int compareTo(Pessoa p) {
+        return this.getNome().compareTo(p.getNome());
+    }
+
 }

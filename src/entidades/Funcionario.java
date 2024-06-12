@@ -11,6 +11,8 @@ public class Funcionario extends Pessoa {
     private BigDecimal salario;
     private String funcao;
 
+    private static BigDecimal totalDosSalarios = new BigDecimal("0");
+
     private final DateTimeFormatter formatadorData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private final NumberFormat formatadorSalario = new DecimalFormat("#,###.##");
 
@@ -39,6 +41,11 @@ public class Funcionario extends Pessoa {
     public void aumentarDezPorCentoDoSalario() {
         BigDecimal dezPorCento = this.salario.multiply(new BigDecimal("0.10"));
         this.salario = this.salario.add(dezPorCento).setScale(2, RoundingMode.HALF_UP);
+    }
+
+    public String quantiodadeDeSalariosMinimos() {
+        Double valor = this.salario.doubleValue() / 1212.00;
+        return String.format("%.2f", valor);
     }
 
     @Override
