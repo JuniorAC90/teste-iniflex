@@ -2,12 +2,12 @@ import entidades.Funcionario;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        
+
+        // 3.1 - Inserindo todos os funcionários
         List<Funcionario> listaDeFuncionarios = new ArrayList<>();
         Funcionario umFuncionario = new Funcionario(
                 "Maria",
@@ -79,9 +79,37 @@ public class Main {
                 "Gerente");
         listaDeFuncionarios.add(umFuncionario);
 
+        // 3.2 - Remover João da lista
+        listaDeFuncionarios.removeIf(funcionario -> funcionario.getNome().equals("João"));
+
+        // 3.3 - Imprimindo todos os funcionários
+        System.out.println("Imprimindo todos os Funcionários: \n");
+        System.out.println("Nome\tDataNasc\tSalário\t\tFunção");
         for (Funcionario f : listaDeFuncionarios) {
             System.out.println(f);
         }
+        System.out.println("\n---------------------------------------------\n");
+        // 3.4 - Aumentar 10% de salário
+        for (Funcionario f : listaDeFuncionarios) {
+            f.aumentarDezPorCentoDoSalario();
+        }
+
+        // 3.5 - Agrupar por Função em Map
+        Map<String, List<Funcionario>> funcionariosAgrupados = new HashMap<>();
+        for (Funcionario f : listaDeFuncionarios) {
+            funcionariosAgrupados.put(f.getFuncao(), new ArrayList<>());
+        }
+        for (Funcionario f : listaDeFuncionarios) {
+            funcionariosAgrupados.get(f.getFuncao()).add(f);
+        }
+        /*
+        Set<String> funcoes = funcionariosAgrupados.keySet();
+        for (String funcao : funcoes)
+        System.out.println(funcionariosAgrupados);
+        */
+
+
+
 
         System.out.println(listaDeFuncionarios.size());
 

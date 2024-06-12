@@ -1,6 +1,7 @@
 package entidades;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.time.LocalDate;
@@ -35,13 +36,17 @@ public class Funcionario extends Pessoa {
         this.funcao = funcao;
     }
 
+    public void aumentarDezPorCentoDoSalario() {
+        BigDecimal dezPorCento = this.salario.multiply(new BigDecimal("0.10"));
+        this.salario = this.salario.add(dezPorCento).setScale(2, RoundingMode.HALF_UP);
+    }
+
     @Override
     public String toString() {
-        return "Funcionario { " + "\n" +
-                "Nome:"+ this.getNome() + "\n" +
-                "Data Nascimento:"+ this.getDataNascimento().format(formatadorData) + "\n" +
-                "Salário: " + formatadorSalario.format(salario) + "\n" +
-                "Função: " + funcao + "\n" +
-                '}';
+        formatadorSalario.setMinimumFractionDigits(2);
+        return this.getNome() + "\t"
+                + this.getDataNascimento().format(formatadorData) + "\t"
+                + formatadorSalario.format(salario) + "\t"
+                + funcao;
     }
 }
