@@ -102,11 +102,11 @@ public class Main {
         for (Funcionario f : listaDeFuncionarios) {
             funcionariosAgrupados.get(f.getFuncao()).add(f);
         }
-        /*
-        Set<String> funcoes = funcionariosAgrupados.keySet();
-        for (String funcao : funcoes)
+
+        //Set<String> funcoes = funcionariosAgrupados.keySet();
+        //for (String funcao : funcoes)
         System.out.println(funcionariosAgrupados);
-        */
+
 
 
 
