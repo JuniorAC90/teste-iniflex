@@ -130,7 +130,7 @@ public class Main {
         System.out.println("\n---------------------------------------------\n");
 
         // 3.9 - Imprimindo o funcionário com a maior idade
-        System.out.println("Funcionário mais velho:");
+        System.out.println("Funcionário com a maior idade:");
         for (Funcionario f : listaDeFuncionarios) {
             if (f.calculaIdade() == f.getMaiorIdade()) {
                 System.out.println("Nome: " + f.getNome() + "\t" + "Idade: " + f.calculaIdade());
