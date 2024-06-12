@@ -2,6 +2,7 @@ import entidades.Funcionario;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.*;
 
 public class Main {
@@ -103,15 +104,45 @@ public class Main {
             funcionariosAgrupados.get(f.getFuncao()).add(f);
         }
 
-        //Set<String> funcoes = funcionariosAgrupados.keySet();
-        //for (String funcao : funcoes)
-        System.out.println(funcionariosAgrupados);
+        // 3.6 - Agrupar por Função em Map
+        Set<String> funcoes = funcionariosAgrupados.keySet();
+        for (String funcao : funcoes) {
+            System.out.println("Função: " + funcao);
+            System.out.println("Funcionários: ");
+            for(Funcionario f : funcionariosAgrupados.get(funcao)) {
+                System.out.println(f);
+            }
+            System.out.println();
+        }
+
+        System.out.println("\n---------------------------------------------\n");
+
+        // 3.8 - Imprimindo os funcionários que fazem aniversário no mês 10 e 12
+        System.out.println("Funcionários que fazem aniversário no mês 10 e 12:");
+        for(Funcionario f : listaDeFuncionarios) {
+            if (f.getDataNascimento().getMonth().equals(Month.OCTOBER) || f.getDataNascimento().getMonth().equals(Month.DECEMBER)) {
+                System.out.println(f);
+            }
+        }
+
+        System.out.println("\n---------------------------------------------\n");
+
+        // 3.9 - Imprimindo o funcionário com a maior idade
+        System.out.println("Funcionário mais velho:");
+        for (Funcionario f : listaDeFuncionarios) {
+            if (f.calculaIdade() == f.getMaiorIdade()) {
+                System.out.println("Nome: " + f.getNome() + "\t" + "Idade: " + f.calculaIdade());
+            }
+
+        }
+
+        System.out.println("\n---------------------------------------------\n");
 
 
 
 
 
-        System.out.println(listaDeFuncionarios.size());
+
 
     }
 }
