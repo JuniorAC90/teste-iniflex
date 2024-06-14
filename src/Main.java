@@ -1,86 +1,41 @@
 import entidades.Funcionario;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
 
-        // 3.1 - Inserindo todos os funcionários
         List<Funcionario> listaDeFuncionarios = new ArrayList<>();
-        Funcionario umFuncionario = new Funcionario(
-                "Maria",
-                LocalDate.of(2000, 10, 18),
-                new BigDecimal("2009.44"),
-                "Operador");
-        listaDeFuncionarios.add(umFuncionario);
-
-        umFuncionario = new Funcionario(
-                "João",
-                LocalDate.of(1990, 5, 12),
-                new BigDecimal("2284.38"),
-                "Operador");
-        listaDeFuncionarios.add(umFuncionario);
-
-        umFuncionario = new Funcionario(
-                "Caio",
-                LocalDate.of(1961, 5, 2),
-                new BigDecimal("9836.14"),
-                "Coordenador");
-        listaDeFuncionarios.add(umFuncionario);
-
-        umFuncionario = new Funcionario(
-                "Miguel",
-                LocalDate.of(1988, 10, 14),
-                new BigDecimal("19119.88"),
-                "Diretor");
-        listaDeFuncionarios.add(umFuncionario);
-
-        umFuncionario = new Funcionario(
-                "Alice",
-                LocalDate.of(1995, 1, 5),
-                new BigDecimal("2234.68"),
-                "Recepcionista");
-        listaDeFuncionarios.add(umFuncionario);
-
-        umFuncionario = new Funcionario(
-                "Heitor",
-                LocalDate.of(1999, 11, 19),
-                new BigDecimal("1582.72"),
-                "Operador");
-        listaDeFuncionarios.add(umFuncionario);
-
-        umFuncionario = new Funcionario(
-                "Arthur",
-                LocalDate.of(1993, 3, 31),
-                new BigDecimal("4071.84"),
-                "Contador");
-        listaDeFuncionarios.add(umFuncionario);
-
-        umFuncionario = new Funcionario(
-                "Laura",
-                LocalDate.of(1994, 7, 8),
-                new BigDecimal("3017.45"),
-                "Gerente");
-        listaDeFuncionarios.add(umFuncionario);
-
-        umFuncionario = new Funcionario(
-                "Heloísa",
-                LocalDate.of(2003, 5, 24),
-                new BigDecimal("1606.85"),
-                "Eletricista");
-        listaDeFuncionarios.add(umFuncionario);
-
-        umFuncionario = new Funcionario(
-                "Helena",
-                LocalDate.of(1996, 9, 2),
-                new BigDecimal("2799.93"),
-                "Gerente");
-        listaDeFuncionarios.add(umFuncionario);
+        String caminhoDoProjeto = System.getProperty("user.dir");
+        try (BufferedReader br = new BufferedReader(new FileReader(caminhoDoProjeto + "/src/funcionarios.csv"))) {
+            br.readLine();
+            String linha = br.readLine();
+            while (linha != null) {
+                String[] linhaFuncionario = linha.split(",");
+                String nome = linhaFuncionario[0];
+                DateTimeFormatter formatarData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                LocalDate dataNascimento = LocalDate.parse(linhaFuncionario[1], formatarData);
+                BigDecimal salario = new BigDecimal(linhaFuncionario[2]);
+                String funcao = linhaFuncionario[3];
+                Funcionario funcionario = new Funcionario(nome, dataNascimento, salario, funcao);
+                listaDeFuncionarios.add(funcionario);
+                linha = br.readLine();
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         // 3.2 - Remover João da lista
         listaDeFuncionarios.removeIf(funcionario -> funcionario.getNome().equals("João"));
